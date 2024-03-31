@@ -5,13 +5,28 @@ import com.example.evolveservice.dtos.ContactDto;
 import com.example.evolveservice.entity.Address;
 import com.example.evolveservice.entity.Contact;
 import com.example.evolveservice.enums.Status;
+import com.example.evolveservice.repo.AddressRepo;
+import com.example.evolveservice.repo.ContactRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class ContactService {
 
+    @Autowired
+    private ContactRepo contactRepo;
+
+    @Autowired
+    private AddressRepo addressRepo;
+
+
     public Long createContact(ContactDto contactDto){
-        return 0l;
+        Contact contact = mapToEntity(contactDto);
+        // insert into contact values ()
+        contact = contactRepo.save(contact);
+        return contact.getId();
     }
 
     private Contact mapToEntity(ContactDto contactDto){
@@ -20,9 +35,8 @@ public class ContactService {
         contact.setEmail(contactDto.getEmail());
         contact.setPhone(contactDto.getPhone());
         contact.setStatus(Status.ACTIVE);
-        Address address = new Address();
-        mapToEntity(contactDto.getAddressDto());
-        //addressRepository.save(address);
+        Address address = mapToEntity(contactDto.getAddressDto());
+        address = addressRepo.save(address);
         contact.setAddress(address);
         return contact;
     }

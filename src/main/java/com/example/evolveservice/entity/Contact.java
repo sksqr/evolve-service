@@ -40,9 +40,9 @@ public class Contact {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private OffsetDateTime dateCreated;
+    private OffsetDateTime dateCreated = OffsetDateTime.now();
 
     @LastModifiedDate
     @Column(nullable = false)
-    private OffsetDateTime lastUpdated;
+    private OffsetDateTime lastUpdated = OffsetDateTime.now();
 }

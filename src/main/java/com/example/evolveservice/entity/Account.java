@@ -15,27 +15,24 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clientId;
+    private Long id;
 
-    @Column(nullable = false)
-    private String clientName;
-
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false,unique = true)
+    private String clientId;
 
     @Column(nullable = false, unique = true)
-    private String phone;
+    private String clientName;
 
     @OneToOne
     private Contact contact;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private OffsetDateTime dateCreated;
+    private OffsetDateTime dateCreated = OffsetDateTime.now();
 
     @LastModifiedDate
     @Column(nullable = false)
-    private OffsetDateTime lastUpdated;
+    private OffsetDateTime lastUpdated = OffsetDateTime.now();
 
 }
 /*
