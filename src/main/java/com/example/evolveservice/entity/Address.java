@@ -3,6 +3,7 @@ package com.example.evolveservice.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -10,6 +11,7 @@ import java.time.OffsetDateTime;
 
 @Getter
 @Setter
+@ToString
 @Entity
 public class Address {
 
