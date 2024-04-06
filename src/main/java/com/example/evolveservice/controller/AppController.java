@@ -3,10 +3,7 @@ package com.example.evolveservice.controller;
 import com.example.evolveservice.dtos.*;
 import com.example.evolveservice.entity.Contact;
 import com.example.evolveservice.repo.ContactRepo;
-import com.example.evolveservice.service.AccountService;
-import com.example.evolveservice.service.ContactService;
-import com.example.evolveservice.service.EntityService;
-import com.example.evolveservice.service.MeetingService;
+import com.example.evolveservice.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +36,9 @@ public class AppController {
 
     @Autowired
     private EntityService entityService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/createContact")
     public Long createContact(@RequestBody ContactDto contactDto){
@@ -85,6 +85,17 @@ public class AppController {
     @GetMapping("/searchEntities")
     public EntitySearchDto searchEntities(@RequestParam String keyword){
         return entityService.getEntities(keyword);
+    }
+
+    @PostMapping("/createEmailList")
+    public Long createEmailList(@RequestParam String name){
+        return emailService.createEmailList(name);
+    }
+
+    @PutMapping("/addContactsInEmailList")
+    public String addContactsInEmailList(@RequestBody ContactsInEmailListDto contactsInEmailListDto){
+        return emailService.addContactsInEmailList(contactsInEmailListDto);
+
     }
 
 }
