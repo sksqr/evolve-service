@@ -12,10 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
 @RestController
@@ -96,6 +98,12 @@ public class AppController {
     public String addContactsInEmailList(@RequestBody ContactsInEmailListDto contactsInEmailListDto){
         return emailService.addContactsInEmailList(contactsInEmailListDto);
 
+    }
+
+    @PostMapping("/sendEmail")
+    public ResponseEntity<String> sendEmail(@RequestBody SendEmailDto sendEmailDto) throws ExecutionException, InterruptedException {
+        String msg =  emailService.sendEmail(sendEmailDto);
+        return ResponseEntity.accepted().body(msg);
     }
 
 }
